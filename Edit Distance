@@ -1,0 +1,44 @@
+import sys
+from Bio import SeqIO
+
+fopen=open(sys.argv[1])
+data=[]
+for seq_records in SeqIO.parse(fopen,"fasta"):
+    data.append(str(seq_records.seq))
+s1=data[0]
+s2=data[1]
+
+def levenshteindistance(s,t):
+    #for all i and j, d[i,j] will hold the Levenshtein distance between
+  #the first i characters of s and the first j characters of t
+  m=len(s)+1
+  n=len(t)+1
+  #declare int d[0..m+1, 0..n+1]
+  d=[[0 for x in range(n)] for x in range(m)]
+  #set each element in d to zero
+ 
+  #source prefixes can be transformed into empty string by
+  #dropping all characters
+  for i in range(1, m):
+      d[i][0] = i
+ 
+  #target prefixes can be reached from empty source prefix
+  #by inserting every character
+  for j in range(1, n):
+      d[0][j] = j
+ 
+  for j in range(1, n):
+      for i in range(1, m):
+          if s[i-1] == t[j-1]:
+            substitutionCost = 0
+          else:
+            substitutionCost = 1
+
+          d[i][j] = min(d[i-1][j] + 1,                   #deletion
+                             d[i][j-1] + 1,                   #insertion
+                             d[i-1][j-1] + substitutionCost)  #substitution
+##  for r in range(m):
+##      print(d[r])
+  return d[i][j]
+print(levenshteindistance(s1,s2))
+
