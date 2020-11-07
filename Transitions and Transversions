@@ -1,0 +1,26 @@
+import sys
+from Bio import SeqIO
+count=0
+f=open(sys.argv[1])
+seq=[]
+for records in SeqIO.parse(f,'fasta'):
+    seq.append(str(records.seq))
+#print(seq[0])
+nuc_meaning={'A':'pur','C':'pyr','T':'pyr','G':'pur'}
+ts=0
+tv=0
+pairs=[]
+pairs2=[]
+for a,b in zip(seq[0],seq[1]):
+    for i in range(0,len(a)):
+        if a[i]!=b[i]:
+            if nuc_meaning.get(a[i]) == nuc_meaning.get(b[i]):
+                       ts+=1
+                       #pairs.append((a[i],b[i]))
+            elif nuc_meaning.get(a[i]) != nuc_meaning.get(b[i]):
+                tv+=1
+            #pairs2.append((a[i],b[i]))
+#print(ts)
+
+#print(ts,tv)
+print(round((ts/tv),11))
