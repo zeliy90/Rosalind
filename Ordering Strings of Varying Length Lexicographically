@@ -1,0 +1,21 @@
+import sys
+data=open(sys.argv[1]).read()
+nuc=[]
+repeats=''
+
+for char in range(len(data)):
+    if data[char] != '\n':
+        nuc.append(data[char])
+    else:
+        repeats+=data[char+1]
+        break
+nu=''.join(nuc).split()
+a=[]
+import itertools
+answers=open('A39.txt','w+')
+for p in itertools.product(nu, repeat=int(repeats)):
+    for i in range(1,int(repeats)+1):
+        if p[:i] not in a:
+            a.append(p[:i])
+for l in a:
+    answers.write(''.join(l)+'\n')
