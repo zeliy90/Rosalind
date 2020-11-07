@@ -1,0 +1,26 @@
+import sys
+from Bio import SeqIO
+import re
+f=open(sys.argv[1])
+seqs=[]
+for records in SeqIO.parse(f,'fasta'):
+    seqs.append(str(records.seq))
+#print(seqs)
+
+s=seqs[0]
+t=seqs[1]
+p=0
+positions=[]
+aseq=[]
+for i in range(len(t)):
+    for j in range(i,len(s)):
+        if t[i]==s[j] and p+1<j:
+                positions.append(j+1)
+                p=j
+                #print(p)
+                break
+print(*positions, sep=' ')
+            
+        #print(s.find(t[i])+1)
+
+            
