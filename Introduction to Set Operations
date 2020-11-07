@@ -1,0 +1,60 @@
+import sys
+import numpy as np
+sets=[]
+
+
+with open(sys.argv[1],'r') as data:
+    for line in data:
+        sets.append(line.strip('\n'))
+#print(sets)
+A=[int(aa) for aa in sets[1].strip('{}').split(',')]
+B=[int(bb) for bb in sets[2].strip('{}').split(',')]
+#print(A)
+#print(B)
+##for bb in sets[2].strip('{}').split(','):
+##                B.add(int(bb))
+                
+range_int=[]
+for r in range(1,int(sets[0])+1):
+    range_int.append(r)
+#print(range_int)
+
+union=set()
+intersection=set()
+A_diff=set()
+B_diff=set()
+Ac=set()
+Bc=set()
+for au in A:
+    if au not in union:
+        union.add(au)
+for ub in B:
+    if ub not in union:
+        union.add(ub)
+#print(union)
+        
+for i in A:
+    if i in B:
+        intersection.add(i)
+#print(intersection)
+        
+for ad in A:
+    if ad not in B:
+        A_diff.add(ad)
+#print(A_diff)
+
+for bd in B:
+    if bd not in A:
+        B_diff.add(bd)
+#print(B_diff)
+
+for rc in range_int:
+    if rc not in A:
+        Ac.add(rc)
+    if rc not in B:
+        Bc.add(rc)
+#print(Ac)
+#print(Bc)
+answers=open('A51.txt','w+')
+answers.write(str(union)+'\n'+str(intersection)+'\n'+str(A_diff)+'\n'+str(B_diff)+'\n'+str(Ac)+'\n'+str(Bc))
+answers.close()
