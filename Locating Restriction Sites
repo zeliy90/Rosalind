@@ -1,0 +1,29 @@
+import sys
+import re
+from Bio import SeqIO
+f=open(sys.argv[1])
+r=''
+for records in SeqIO.parse(f,'fasta'):
+    r+=str(records.seq)
+    
+#print(r)
+
+def rev_complement(nucleotides):
+    rev=''
+    nuc = 'ATGC'
+    comp ='TACG'
+    for j in nucleotides:
+        n=nuc.find(j)
+        c=comp[n]
+        rev+=c
+    return rev[::-1]
+
+
+for start in range(len(r)):
+    for end in range(start,len(r)):
+       seq = r[start:end+1]                                 
+       if len(seq) >= 4 and len(seq) <= 12:        
+            if seq == rev_complement(seq):                
+                print(start + 1, len(seq)) 
+   
+   
