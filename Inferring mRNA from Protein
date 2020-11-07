@@ -1,0 +1,28 @@
+import sys
+#import numpy
+data=open(sys.argv[1]).read()
+protein=[]
+count=[]
+countaa=0
+result=1
+amino_acids={'AUG':'M','UUU':'F','UUC':'F','UUA':'L','UUG':'L','UCU':'S',
+                 'UCC':'S','UCA':'S','UCG':'S','CUU': 'L','AUU': 'I','GUU': 'V',
+                 'CUC': 'L','AUC': 'I','GUC': 'V','CUA': 'L','AUA': 'I','GUA': 'V',
+                 'CUG': 'L','GUG': 'V','CCU': 'P', 'ACU': 'T','GCU': 'A','CCC': 'P',
+                 'ACC': 'T','GCC': 'A','CCA': 'P','ACA': 'T','GCA': 'A','CCG': 'P',
+                 'ACG': 'T','GCG': 'A','UAU': 'Y','CAU': 'H','AAU': 'N','GAU': 'D',
+                 'UAC': 'Y','CAC': 'H','AAC': 'N','GAC': 'D','UAA': '*','CAA': 'Q',
+                 'AAA': 'K','GAA': 'E','UAG': '*','CAG': 'Q','AAG': 'K','GAG': 'E',
+                 'UGU': 'C','CGU': 'R','AGU': 'S','GGU': 'G','UGC': 'C','CGC': 'R',
+                 'AGC': 'S','GGC': 'G','UGA': '*','CGA': 'R','AGA': 'R','GGA': 'G',
+                 'UGG': 'W','CGG': 'R','AGG': 'R','GGG': 'G','UAA':'*'}
+for aa in amino_acids.values():
+    protein.append(aa)
+
+for i in data:
+    countaa=protein.count(i)
+    count.append(countaa)
+#result=numpy.product(count)
+    result*=countaa
+    #print(countaa)
+print((result*3)%1000000)
