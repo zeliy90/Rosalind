@@ -1,0 +1,23 @@
+#use range and i to compare fasta files characters
+#create for loop to go through the range given and a if statement to stop it or break
+from Bio import SeqIO
+import sys
+
+#my_file=open('ex14.txt')
+def long_substr(file):
+    sequences=[]
+    f=open(file)
+    for seq_records in SeqIO.parse(f,"fasta"):
+        sequences.append(seq_records.seq)#puts sequences from fasta file in a list
+    substr = ''
+    if len(sequences) > 1 and len(sequences[0]) > 0:#take first records as a reference 
+        for i in range(len(sequences[0])):#use its range so that is this ends first the program ends since you dont know which one is the min length seq
+            for j in range(len(sequences[0])-i+1):#takes the length of the first seq and suntracts the position of the the first for loop (i)
+                #then adds one ex:1000(len of 1st sequence)-2(i)=998+1=999,decreasing the range of sequence[0]
+                if j > len(substr) and all(sequences[0][i:j+1] in x for x in sequences):#using a splice ex:2:1000 to 3:999 to 4:998 and compare thoses characters to each sequence
+                    #in the fasta file, the range will get smaller until the substring found in the splice event is found in all sequences
+                    substr = sequences[0][i:j]
+    return substr
+print(long_substr('rosalind_lcsm (1).txt'))
+
+
