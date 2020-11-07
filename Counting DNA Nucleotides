@@ -1,0 +1,12 @@
+import sys
+
+def countn(seq):
+    char=open(seq)
+    r=char.read()
+    nuc='ACGT'
+    occurances=[]
+    for i in nuc:
+        c=r.count(i)
+        occurances.append(c)
+    return occurances
+print(countn(sys.argv[1]))
