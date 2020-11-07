@@ -1,0 +1,29 @@
+import urllib.request
+from Bio import SeqIO
+import sys
+import re
+f=open(sys.argv[1]).read().split()
+seq_file=open('Q16_seq.txt','w+')
+ids=[]
+for i in f:
+    ids.append(i)
+    urlloc = 'http://www.uniprot.org/uniprot/'+i+'.fasta'
+    with urllib.request.urlopen(urlloc) as f:
+        response=f.read().decode('utf-8')
+        seq_file.write(response)
+seq_file.close()
+
+
+
+fseq=open('Q16_seq.txt')
+answers=[]
+for seq_records in SeqIO.parse(fseq,"fasta"):
+    s=str(seq_records.seq)
+    names=seq_records.name
+    motifs=[m.start()+1 for m in re.finditer(r"(?=([N][^P][ST][^P]))",s)]
+    answers.append(motifs)
+#print(answers)
+for i in range(len(ids)):
+    if len(answers[i])>0:
+        print(ids[i])
+        print(*answers[i], sep=' ')
