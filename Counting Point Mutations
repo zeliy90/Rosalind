@@ -1,0 +1,8 @@
+import sys
+count=0
+seq=open(sys.argv[1]).read().split()
+for a,b in zip(seq[0],seq[1]):
+    if a!=b:
+        count+=1
+print(count)
+
