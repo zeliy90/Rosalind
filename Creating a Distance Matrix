@@ -1,0 +1,25 @@
+import sys
+from Bio import SeqIO
+import numpy as np
+fopen=open(sys.argv[1])
+seqs=[]
+
+for seq_records in SeqIO.parse(fopen,"fasta"):
+    seqs.append(str(seq_records.seq))
+        
+def hamming(seq1,seq2):   
+    count=0
+    for a,b in zip(seq1,seq2):
+        if a!=b:
+            count+=1
+    return count
+
+distance=[]
+for i in seqs:
+    for j in range(len(seqs)):
+        distance.append(format((hamming(i,seqs[j])/len(i)),'.5f'))
+hammarray=np.array(distance)
+hamm_matrix=hammarray.reshape(len(seqs),len(seqs))
+for k in hamm_matrix:
+    print(*k,sep=' ')
+#print(*hammarray,sep=' ')
