@@ -1,0 +1,18 @@
+from Bio import SeqIO
+import sys
+#make dictionary
+def fasta(file):
+    GC=[]
+    f=open(file)
+    for seq_records in SeqIO.parse(f,"fasta"):
+        seq=seq_records.seq
+        length=len(seq)
+        gc=seq.count('G')+seq.count('C')
+        gc_content=(gc/length)*100
+        GC.append((round(gc_content,6),seq_records.id))
+    for i in max(GC):
+        print(i)
+
+    #print(max(GC))
+print(fasta(sys.argv[1]))
+        
