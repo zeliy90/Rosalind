@@ -1,0 +1,19 @@
+import sys
+data=open(sys.argv[1]).read()
+nuc=[]
+repeats=''
+
+for char in range(len(data)):
+    if data[char] != '\n':
+        nuc.append(data[char])
+    else:
+        repeats+=data[char+1]
+        break
+nu=''.join(nuc).split()
+
+import itertools
+answers=open('A23.txt','w+')
+lex = list(itertools.product(nu, repeat=int(repeats)))
+for i in lex:
+    m=''.join(i)
+    answers.write(m+'\n')
