@@ -1,0 +1,22 @@
+from Bio import SeqIO
+import sys
+from math import factorial
+fopen=open(sys.argv[1])
+
+rec=''
+answer=[]
+a=[]
+
+for seq_records in SeqIO.parse(fopen,"fasta"):
+    rec+=str(seq_records.seq)
+#print(rec)
+
+a=factorial(rec.count('A'))
+g=factorial(rec.count('G'))
+print(a*g)
+#calculate catalan number for random int
+#use to interpret rna
+#based on at and gc match
+#one function yo find catalan number
+#anither to through all pairs in array
+#range[i]had to be <than[i+1]
