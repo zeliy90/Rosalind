@@ -1,0 +1,8 @@
+import sys
+
+seq=open(sys.argv[1]).read().split()
+
+for i in range(len(seq[0])):
+    if seq[0].startswith(seq[1],i):
+        print(i+1,end=" ")
+
