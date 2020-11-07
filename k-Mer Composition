@@ -1,0 +1,30 @@
+import sys
+from Bio import SeqIO
+from itertools import product
+from collections import Counter
+fopen=open(sys.argv[1])
+
+seq=''
+for seq_records in SeqIO.parse(fopen,"fasta"):
+    seq+=str(seq_records.seq)
+p=[''.join(x) for x in product('ACGT', repeat=4)]
+def kmers(string,k):
+    frequency={}#array
+    for kmer in p:
+        frequency[kmer]=0
+    for i in range(len(string)-k+1):
+        kmer=string[i:i+k] #loop through
+        if kmer in frequency:
+            frequency[kmer]+=1
+        else:
+            frequency[kmer]=1
+    return frequency
+c=kmers(seq,4)
+sort_kmer={k:v for k,v in sorted(c.items(), key=lambda item:item[0])}
+string_values=[int(y) for y in sort_kmer.values()]
+print(*string_values, sep=' ')
+#print(' '.join(sort_kmer.values()))
+#print(c)
+
+
+
