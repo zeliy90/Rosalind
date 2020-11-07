@@ -1,0 +1,29 @@
+import sys
+import itertools
+from operator import mul
+#f=open(sys.argv[1]).read()
+f=open(sys.argv[1]).read()
+n=int(f)
+##
+data=[]
+##
+##for i in range(1,n+1):
+##        data.append(-1*i)
+##        data.append(i)
+#print(data)
+for i in range(1,n+1):
+    data.append(i)
+    #data.append(-1*i)
+count=0
+partialperm=[]
+lex = list(itertools.permutations(data, r=n))
+for l in lex:
+    partial=itertools.product([-1,1],repeat=len(data))
+    for p in partial:
+        count+=1
+        partialperm.append([a*m for a,m in zip(l,p)])
+print(count)
+#result=tuple(map(mul,lex,partialperm))
+
+for perm in partialperm:
+    print(*perm,sep=' ')
