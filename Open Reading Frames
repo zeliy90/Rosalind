@@ -1,0 +1,82 @@
+import sys
+import os
+from Bio import SeqIO
+
+##AA=''
+
+amino_acids={'AUG':'M','UUU':'F','UUC':'F','UUA':'L','UUG':'L','UCU':'S',
+                 'UCC':'S','UCA':'S','UCG':'S','CUU': 'L','AUU': 'I','GUU': 'V',
+                 'CUC': 'L','AUC': 'I','GUC': 'V','CUA': 'L','AUA': 'I','GUA': 'V',
+                 'CUG': 'L','GUG': 'V','CCU': 'P', 'ACU': 'T','GCU': 'A','CCC': 'P',
+                 'ACC': 'T','GCC': 'A','CCA': 'P','ACA': 'T','GCA': 'A','CCG': 'P',
+                 'ACG': 'T','GCG': 'A','UAU': 'Y','CAU': 'H','AAU': 'N','GAU': 'D',
+                 'UAC': 'Y','CAC': 'H','AAC': 'N','GAC': 'D','UAA': '*','CAA': 'Q',
+                 'AAA': 'K','GAA': 'E','UAG': '*','CAG': 'Q','AAG': 'K','GAG': 'E',
+                 'UGU': 'C','CGU': 'R','AGU': 'S','GGU': 'G','UGC': 'C','CGC': 'R',
+                 'AGC': 'S','GGC': 'G','UGA': '*','CGA': 'R','AGA': 'R','GGA': 'G',
+                 'UGG': 'W','CGG': 'R','AGG': 'R','GGG': 'G','UAA':'*'}
+
+fopen=open(sys.argv[1])
+for seq_records in SeqIO.parse(fopen,"fasta"):
+    record=seq_records.seq
+    records=record.transcribe()
+        
+#print(AA[AA.find('M'):AA.find('*')])
+#print frame and reversecomp frame
+    def translate (x):
+        AA=''
+        aaseq=''
+        for i in range(len(x)//3):
+            codon=x[3*i:3*i+3] 
+            aa=amino_acids[codon]
+            AA+=codon
+            aaseq+=aa
+    #        if x[2] in codon=='N':
+    #            Nlist=[]
+            
+            
+        return ''.join(aaseq)
+    A=translate(records[0:])
+    B=translate(records[1:])
+    C=translate(records[2:])
+    
+
+    def Dcomplement(base):
+        complements={'A': 'U','C':'G','U':'A','G':'C'}
+
+        return complements[base]
+
+    def Rcomplementary_seq(seq):
+        complement = ''
+        for char in seq:
+           complement += Dcomplement(char) #concatenates first complement with first one ouputed     
+        s1=''.join(reversed(complement))  #joins the string together in a reverse order
+        return s1
+
+    tran=Rcomplementary_seq(records) #assigned a varable to the reverse complement function
+
+    D=translate(tran[0:])
+    E=translate(tran[1:])
+    F=translate(tran[2:])
+    openreading=[A,B,C,D,E,F]
+    #print(openreading)
+    position=[]
+    orf = []
+    orf_unique=[]
+    for start in openreading:
+        for p in range(0,len(start)):
+            if start[p]=='M':
+                protein=start[p:]
+                position.append(protein)
+    #print(position)
+    for s in position:
+        if '*' in s:
+            orf.append(s[s.find('M'):s.find('*')])
+    for l in orf:
+        if l not in orf_unique:
+            orf_unique.append(l)
+    #print(orf_unique)
+    for o in orf_unique:
+        print(o)
+            
+               
