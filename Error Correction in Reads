@@ -1,0 +1,49 @@
+import sys
+from Bio import SeqIO
+fopen=open(sys.argv[1])
+seqs=[]
+
+for seq_records in SeqIO.parse(fopen,"fasta"):
+    seqs.append(str(seq_records.seq))
+        
+def hamming(seq1,seq2):   
+    count=0
+    for a,b in zip(seq1,seq2):
+        if a!=b:
+            count+=1
+    return count
+    
+def rev_complement(nucleotides):
+    rev=''
+    nuc = 'ATGC'
+    comp ='TACG'
+    for j in nucleotides:
+        n=nuc.find(j)
+        c=comp[n]
+        rev+=c
+    return rev[::-1]
+
+rev_seqs=[]
+for i in seqs:
+    rev_seqs.append(rev_complement(i))
+    rev_seqs.append(i)
+
+
+#print(rev_seqs)
+answers=[] 
+for j in seqs:
+        if rev_seqs.count(j)==1:
+            for k in range(len(rev_seqs)):
+                if hamming(j,rev_seqs[k])==1:
+                    if rev_seqs.count(rev_seqs[k])>1:
+                        a=[j,rev_seqs[k]]
+                        if a not in answers:
+                            answers.append(a)
+
+data=open('A34.txt','w+')
+for aa in answers:
+    data.write(aa[0]+'->'+aa[1]+'\n')
+
+
+                   
+
