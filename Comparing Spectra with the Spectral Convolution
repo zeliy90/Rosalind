@@ -1,0 +1,19 @@
+import sys
+
+sets=open(sys.argv[1]).read().split('\n')
+s1=sets[0].split(' ')
+#print(s1)
+s2=sets[1].split(' ')
+#print(s2)
+set1=[float(x) for x in s1]
+set2=[float(y) for y in s2]
+lst=[]
+for i in set1:
+    for j in set2:
+        lst.append("{:.5f}".format(i-j))
+m=max(set(lst), key=lst.count)
+#print(lst)
+c=lst.count(m)
+print(c)
+print(m)
+
