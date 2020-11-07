@@ -1,0 +1,10 @@
+import sys
+f=open(sys.argv[1]).read().split()
+#print(f)
+n=int(f[0])
+data=f[1:]
+edges=[]
+for i in data:
+    edges.append(int(i))
+
+print(int(n-1-(len(data)/2)))
