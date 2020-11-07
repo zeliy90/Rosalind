@@ -1,0 +1,27 @@
+from Bio import SeqIO
+import sys
+fopen=open(sys.argv[1])
+
+seqs=[]
+records=[]
+for seq_records in SeqIO.parse(fopen,"fasta"):
+    seqs.append(str(seq_records.seq))
+    records.append(str(seq_records.id))
+#print(seqs,records)
+k=3
+#print(k)
+s=[]
+r=[]
+for seq_id in range(len(records)):
+    for seq in range(len(seqs)):
+        if seq_id!=seq:
+            if seqs[seq_id][-k:]== seqs[seq][:k]:
+                r.append(records[seq_id])
+                s.append(records[seq])
+answer=open('A12.txt','w+')               
+for i in range(len(s)):
+    a=r[i]+' '+s[i]
+    answer.write(a+'\n')
+
+
+
