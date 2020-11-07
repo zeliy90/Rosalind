@@ -1,0 +1,52 @@
+import sys
+from Bio import SeqIO
+import numpy as np
+f=open(sys.argv[1])
+#flip matrix transpose
+seq=[]
+array=[]
+
+for records in SeqIO.parse(f,'fasta'):
+        seq.append(str(records.seq))
+        
+for i in seq:
+        for j in i:
+             array.append(j)   
+matrix=np.array(array)
+shape=(len(seq),len(seq[0]))
+seq_matrix=matrix.reshape(shape)
+#print(seq_matrix)
+matrix_transpose=seq_matrix.transpose()
+#print(matrix_transpose)
+
+A,T,G,C=[],[],[],[]
+
+for s in matrix_transpose:
+        A.append(sum(np.char.count(s,'A')))
+        T.append(sum(np.char.count(s,'T')))
+        G.append(sum(np.char.count(s,'G')))
+        C.append(sum(np.char.count(s,'C')))
+
+consensus=''
+
+#
+counts_array=np.array(A+C+G+T)
+counts_matrix=counts_array.reshape(4,len(A))
+counts_transpose=counts_matrix.transpose()
+#print(counts_matrix)
+
+nucs=['A','C','G','T']
+for i in counts_transpose:
+        max_count=max(i)
+        for j in range(4):
+                if max_count == i[j]:
+                        consensus+=nucs[j]
+                        break
+print(consensus)
+#answers=open('A10.txt','w+')
+#answers.write(consensus+'\n')
+
+for k in range(4):
+        print(nucs[k]+':',*counts_matrix[k])
+        #print(a)
+        #answers.write(a)
