@@ -1,0 +1,27 @@
+import sys
+import math
+data=open(sys.argv[1]).read().split()
+
+seq=data[0]
+num=data[1:]
+nums=[]
+for f in num:
+    nums.append(float(f))
+
+AT=0
+GC=0
+for n in seq:
+    if n=='A':
+        AT+=1
+    elif n=='T':
+        AT+=1
+    elif n=='G':
+        GC+=1
+    elif n=='C':
+        GC+=1
+answers=[]
+for p in range(len(nums)):
+    probability =math.log10((((1-nums[p])/2)**AT)*(nums[p]/2)**GC)
+    answers.append('%0.3f'%probability)
+print(*answers,sep=' ')
+    
