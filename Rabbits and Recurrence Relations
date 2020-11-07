@@ -1,0 +1,17 @@
+#rabbits and reccurence
+import sys
+#data=open(sys.argv[1]).read().split()
+#n=int(data[0])
+#k=int(data[1])
+n=int(sys.argv[1])
+k=int(sys.argv[2])
+def rabbits(n,k):
+    if n<2:
+        return n
+    else:
+        return rabbits(n-1,k)+rabbits(n-2,k)*k
+print(rabbits(n,k))
+#its like the binomial
+#b has to be greater that 2 and the you do n-1+n-2 mutiply all with k
+#uses dynammic programming
+
