@@ -1,0 +1,19 @@
+import sys
+
+data=open(sys.argv[1]).read().split(' ')
+#data=int(data)
+
+offspring=0
+#phenotype={'AA_AA':1,'AA_Aa':0.5,'AA_aa':0,'Aa_Aa':0.75,'Aa_aa':0,'aa_aa':0}
+phenotype=[1,1,1,0.75,0.5,0]
+    
+for e in range(len(data)):
+    p=int(data[e])*phenotype[e]
+    #print(p)
+    offspring+=p
+answer=offspring*2
+print(answer)
+
+
+            
+
