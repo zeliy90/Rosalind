@@ -1,0 +1,6 @@
+import sys
+file=open(sys.argv[1])
+seq=file.read()
+
+rna=seq.replace('T','U')
+print(rna)
