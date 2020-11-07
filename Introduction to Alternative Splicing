@@ -1,0 +1,10 @@
+import sys
+from math import factorial
+data=open(sys.argv[1]).read().split()
+n=int(data[0])
+m=int(data[1])
+comb=0
+for k in range(m,n+1):
+    a=factorial(n)//(factorial(k)*factorial(n-k))
+    comb+=a
+print(int(comb)%1000000)
