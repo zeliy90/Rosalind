@@ -1,0 +1,12 @@
+from scipy.special import binom
+import sys
+data =open(sys.argv[1]).read().split()
+
+k=int(data[0])
+N=int(data[1])
+b=[]
+for i in range(N):
+    binomial=binom(2**k,i)* 0.25**i * 0.75**(2**k - i)
+    b.append(binomial)
+answer=1-sum(b)
+print(round(answer,3))
