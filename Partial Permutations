@@ -1,0 +1,10 @@
+import sys
+import itertools
+from math import factorial
+f=open(sys.argv[1]).read().split()
+n=int(f[0])
+##print(data1)
+k=int(f[1])
+perm=factorial(n)/factorial(n-k)
+print(int(perm%1000000))
+
