@@ -1,0 +1,16 @@
+import sys
+dom,hetero,rec=open(sys.argv[1]).read().split(' ')
+dom=int(dom)
+hetero=int(hetero)
+rec=int(rec)
+
+total=dom+hetero+rec
+
+r=rec/total*((rec-1)/(total-1))
+h=hetero/total*((hetero-1)/(total-1))
+hr=(hetero/total)*(rec/(total-1))+(rec/total)*(hetero/(total-1))
+
+rec_prob=r+h*1/4+hr*1/2
+dom_prob=1-rec_prob
+print(dom_prob)
+
